@@ -60,6 +60,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="google-site-verification" content="h8s69X49z5bZiNVzSG0vlSBcNua3JxtjnWjr0bnxZuw" />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
