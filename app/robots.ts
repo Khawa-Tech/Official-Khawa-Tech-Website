@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
                 disallow: ["/admin", "/dashboard", "/api"],
             },
         ],
-        sitemap: "https://khawa-tech.vercel.app/sitemap.xml",
+        sitemap: "https://khawa-tech.com/sitemap.xml",
     };
 }
