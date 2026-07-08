@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { NAV_LINKS } from "@/src/constants/navLinks";
+import { navLinks } from "@/src/constants/navLinks";
 import Image from "next/image";
+import { useActiveSection } from "@/src/hooks/useActiveSection";
 
 export default function Header() {
-  const [activeLink, setActiveLink] = useState("Accueil");
+
+  const activeLink = useActiveSection(navLinks);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -29,13 +31,12 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex flex-1 justify-center" aria-label="Main navigation">
           <ul className="flex items-center gap-1 list-none m-0 p-0">
-            {NAV_LINKS.map(({ label, href }) => {
-              const isActive = activeLink === label;
+            {navLinks.map(({ title, href }) => {
+              const isActive = activeLink === title;
               return (
-                <li key={label}>
+                <li key={title}>
                   <Link
                     href={href}
-                    onClick={() => setActiveLink(label)}
                     className={[
                       "relative inline-block px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap no-underline transition-colors duration-200",
                       isActive
@@ -43,7 +44,7 @@ export default function Header() {
                         : "text-foreground/60 hover:text-foreground hover:bg-white/5",
                     ].join(" ")}
                   >
-                    {label}
+                    {title}
                   </Link>
                 </li>
               );
@@ -89,13 +90,12 @@ export default function Header() {
       >
         <nav aria-label="Mobile navigation">
           <ul className="flex flex-col gap-1 list-none m-0 p-0 mb-6">
-            {NAV_LINKS.map(({ label, href }) => {
-              const isActive = activeLink === label;
+            {navLinks.map(({ label, title, href }) => {
+              const isActive = activeLink === title;
               return (
                 <li key={label}>
                   <Link
                     href={href}
-                    onClick={() => { setActiveLink(label); setMenuOpen(false); }}
                     className={`block px-3 py-2.5 text-base font-medium rounded-lg no-underline transition-colors duration-200 ${isActive
                       ? "text-primary bg-white/5"
                       : "text-foreground/60 hover:text-foreground hover:bg-white/5"

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Card from "../units/Card";
 import Badge from "../units/Badge";
 import { User, Code2, Zap, Lightbulb, Users, Rocket, RefreshCw, ShieldCheck, Code, Smile, CalendarDays, Target, ArrowRight } from "lucide-react";
+import { navLinks } from "@/src/constants/navLinks";
 
 const FEATURES = [
     {
@@ -27,60 +28,60 @@ const FEATURES = [
     }
 ];
 
-const DIFFERENCE = [
-    {
-        title: "Équipe et Culture",
-        desc: "Une équipe jeune et passionnée qui se soucie de votre réussite.",
-        icon: <Users className="w-4 h-4 text-primary" />,
-        position: "top-[-10%] left-1/2 -translate-x-1/2",
-        align: "",
-        layout: "flex"
-    },
-    {
-        title: "Axé sur les Résultats",
-        desc: "Concentré sur la création de solutions offrant un impact mesurable.",
-        icon: <Rocket className="w-4 h-4 text-primary" />,
-        position: "top-[15%] right-[-8%]",
-        align: "items-start text-left",
-        layout: "flex-col"
-    },
-    {
-        title: "Partenariat à Long Terme",
-        desc: "Nous construisons des relations durables, pas seulement des projets ponctuels.",
-        icon: <RefreshCw className="w-4 h-4 text-primary" />,
-        position: "bottom-[33%] right-[3%]",
-        align: "items-start text-left",
-        layout: "flex-col"
-    },
-    {
-        title: "La Qualité Avant Tout",
-        desc: "Nous ne nous contentons pas de livrer du code, nous livrons l'excellence.",
-        icon: <ShieldCheck className="w-4 h-4 text-primary" />,
-        position: "bottom-[35%] left-[5%]",
-        align: "items-end text-right",
-        layout: "flex-col"
-    },
-    {
-        title: "Expertise Technique",
-        desc: "De solides compétences sur les technologies et frameworks modernes.",
-        icon: <Code className="w-4 h-4 text-primary" />,
-        position: "top-[15%] left-[-8%]",
-        align: "items-end text-right",
-        layout: "flex-col"
-    }
-];
+// const DIFFERENCE = [
+//     {
+//         title: "Équipe et Culture",
+//         desc: "Une équipe jeune et passionnée qui se soucie de votre réussite.",
+//         icon: <Users className="w-4 h-4 text-primary" />,
+//         position: "top-[-10%] left-1/2 -translate-x-1/2",
+//         align: "",
+//         layout: "flex"
+//     },
+//     {
+//         title: "Axé sur les Résultats",
+//         desc: "Concentré sur la création de solutions offrant un impact mesurable.",
+//         icon: <Rocket className="w-4 h-4 text-primary" />,
+//         position: "top-[15%] right-[-8%]",
+//         align: "items-start text-left",
+//         layout: "flex-col"
+//     },
+//     {
+//         title: "Partenariat à Long Terme",
+//         desc: "Nous construisons des relations durables, pas seulement des projets ponctuels.",
+//         icon: <RefreshCw className="w-4 h-4 text-primary" />,
+//         position: "bottom-[33%] right-[3%]",
+//         align: "items-start text-left",
+//         layout: "flex-col"
+//     },
+//     {
+//         title: "La Qualité Avant Tout",
+//         desc: "Nous ne nous contentons pas de livrer du code, nous livrons l'excellence.",
+//         icon: <ShieldCheck className="w-4 h-4 text-primary" />,
+//         position: "bottom-[35%] left-[5%]",
+//         align: "items-end text-right",
+//         layout: "flex-col"
+//     },
+//     {
+//         title: "Expertise Technique",
+//         desc: "De solides compétences sur les technologies et frameworks modernes.",
+//         icon: <Code className="w-4 h-4 text-primary" />,
+//         position: "top-[15%] left-[-8%]",
+//         align: "items-end text-right",
+//         layout: "flex-col"
+//     }
+// ];
 
-const STATS = [
-    { icon: <Smile className="w-8 h-8 text-primary" />, value: "8+", label: "Clients Satisfaits" },
-    { icon: <Code2 className="w-8 h-8 text-primary" />, value: "50K+", label: "Lignes de Code" },
-    { icon: <CalendarDays className="w-8 h-8 text-primary" />, value: "10+", label: "Projets Réalisés" },
-    { icon: <Target className="w-8 h-8 text-primary" />, value: "100%", label: "Engagement" },
-];
+// const STATS = [
+//     { icon: <Smile className="w-8 h-8 text-primary" />, value: "8+", label: "Clients Satisfaits" },
+//     { icon: <Code2 className="w-8 h-8 text-primary" />, value: "50K+", label: "Lignes de Code" },
+//     { icon: <CalendarDays className="w-8 h-8 text-primary" />, value: "10+", label: "Projets Réalisés" },
+//     { icon: <Target className="w-8 h-8 text-primary" />, value: "100%", label: "Engagement" },
+// ];
 
 export default function WhyUs() {
     return (
         <section
-            id="why-us"
+            id="whyUs"
             className="relative bg-background overflow-hidden py-16 lg:py-24 border-b border-white/[0.06]"
         >
             {/* Background glows */}
@@ -97,7 +98,7 @@ export default function WhyUs() {
                     {/* LEFT COLUMN: Features */}
                     <div className="lg:col-span-5 flex flex-col items-center text-center lg:items-start lg:text-left gap-8">
                         <div className="flex flex-col items-center lg:items-start gap-4">
-                            <Badge title="POURQUOI NOUS CHOISIR" />
+                            <Badge title={navLinks.find(link => link.href === "#whyUs")?.label} />
                             <h2 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight text-foreground">
                                 Ce Qui Nous <br className="hidden lg:block" /> <span className="text-primary">Distingue</span>
                             </h2>

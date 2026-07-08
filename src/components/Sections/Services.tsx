@@ -2,40 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Card from "../units/Card";
 import Badge from "../units/Badge";
-import { Globe, Smartphone, Monitor, Bot, ArrowRight } from "lucide-react";
-
-const SERVICES = [
-    {
-        id: "01",
-        title: "Développement Web",
-        desc: "Sites vitrines, e-commerce, applications SaaS, plateformes sur mesure.",
-        icon: <Globe className="w-8 h-8 text-primary" />,
-    },
-    {
-        id: "02",
-        title: "Développement Mobile",
-        desc: "Applications natives, cross-platform (iOS & Android), solutions mobiles d'entreprise.",
-        icon: <Smartphone className="w-8 h-8 text-primary" />,
-    },
-    {
-        id: "03",
-        title: "Applications Bureau",
-        desc: "Logiciels de gestion, outils internes, systèmes de point de vente (POS).",
-        icon: <Monitor className="w-8 h-8 text-primary" />,
-    },
-    {
-        id: "04",
-        title: "Intégration IA et Automatisation",
-        desc: "Chatbots intelligents, analyse prédictive, automatisation des processus (RPA), traitement du langage naturel.",
-        icon: <Bot className="w-8 h-8 text-primary" />,
-    },
-];
+import { ArrowRight } from "lucide-react";
+import { services } from "@/src/constants/services";
+import { navLinks } from "@/src/constants/navLinks";
 
 export default function Services() {
     return (
         <section
             id="services"
-            className="relative bg-background overflow-hidden flex items-center border-b border-white/[0.06]"
+            className="relative bg-background overflow-hidden flex items-center border-b border-white/[0.06] scroll-mt-16"
         >
             {/* Background glows */}
             <div className="absolute inset-0 pointer-events-none select-none">
@@ -49,7 +24,7 @@ export default function Services() {
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
                     {/* LEFT: Text Content */}
                     <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
-                        <Badge title="NOS SERVICES" />
+                        <Badge title={navLinks.find(link => link.href === "#services")?.label} />
                         <h2 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight text-foreground">
                             Nous Construisons Des Solutions Avec Un <span className="text-primary">Impact Réel</span>
                         </h2>
@@ -72,12 +47,12 @@ export default function Services() {
 
                 {/* Cards Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {SERVICES.map(({ id, title, desc, icon }) => (
+                    {services.map(({ id, title, desc, Icon }) => (
                         <Card key={id} className="flex flex-col gap-4 p-6 h-full bg-primary/10" hoverEffect={true}>
                             <div className="flex justify-between items-start">
                                 <span className="text-4xl font-extrabold text-primary/60">{id}</span>
                                 <div className="p-3 bg-primary/10 rounded-xl border border-primary/20">
-                                    {icon}
+                                    <Icon className="w-8 h-8 text-primary" />
                                 </div>
                             </div>
                             <div className="mt-2 flex flex-col flex-1">

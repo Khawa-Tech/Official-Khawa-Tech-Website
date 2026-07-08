@@ -1,8 +1,33 @@
-export const NAV_LINKS = [
-  { label: "Accueil", href: "#home" },
-  { label: "À propos", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Réalisations", href: "#portfolio" },
-  // { label: "Tarifs", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+type NavLink = {
+  title: string;
+  label: string;
+  href: string;
+}
+
+export const navLinks: NavLink[] = [
+  {
+    title: "Accueil",
+    label: "Bienvenue chez Khawa Tech",
+    href: "#home",
+  },
+  {
+    title: "À propos",
+    label: "Qui sommes-nous ?",
+    href: "#about",
+  },
+  {
+    title: "Services",
+    label: "Que proposons-nous ?",
+    href: "#services",
+  },
+  {
+    title: "Pourquoi nous",
+    label: "Pourquoi choisir Khawa Tech ?",
+    href: "#whyUs",
+  },
+  {
+    title: "Contact",
+    label: "Comment nous contacter ?",
+    href: "#contact",
+  },
 ];

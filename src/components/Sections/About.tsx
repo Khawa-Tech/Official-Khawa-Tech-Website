@@ -6,21 +6,9 @@ import {
     LuTrendingUp,
     LuCodeXml,
 } from "react-icons/lu";
-import {
-    SiReact,
-    SiShadcnui,
-    SiFlutter,
-    SiPython,
-    SiPytorch,
-    SiFirebase,
-    SiNestjs,
-    SiNextdotjs,
-    SiTypescript,
-    SiPostgresql,
-    SiTailwindcss,
-} from "react-icons/si";
-import { LuUser } from "react-icons/lu";
 import { Users } from 'lucide-react';
+import { about } from "@/src/constants/about";
+import { navLinks } from "@/src/constants/navLinks";
 
 /* ─────────────────────────────────────────────
    Data
@@ -41,52 +29,6 @@ const VALUE_PILLARS = [
         icon: <LuTrendingUp />,
         title: "Impact Réel",
         desc: "Notre objectif est de livrer une valeur qui aide les entreprises à grandir.",
-    },
-];
-
-const TEAM_MEMBERS = [
-    {
-        name: "Tamer N.",
-        role: "Développeur Mobile & IA",
-        bio: "Développe des applications mobiles modernes avec Flutter et conçoit des solutions d'intelligence artificielle performantes.",
-        Photo: "/resources/Team/mohamed.png",
-        initials: "TN",
-        techs: [
-            { Icon: SiFlutter, color: "#02569B" },
-            { Icon: SiPython, color: "#3776AB" },
-            { Icon: SiPytorch, color: "#EE4C2C" },
-            { Icon: SiFirebase, color: "#FFCA28" },
-        ],
-    },
-    {
-        name: "Mohamed L.",
-        role: "Développeur Full Stack",
-        bio: "Développe des applications web évolutives en utilisant des architectures modernes côté frontend et backend.",
-        Photo: "/resources/Team/mohamed.png",
-        initials: "ML",
-        techs: [
-            { Icon: SiNestjs, color: "#E0234E" },
-            { Icon: SiPostgresql, color: "#4169E1" },
-            { Icon: SiTypescript, color: "#3178C6" },
-            { Icon: SiNextdotjs, color: "#ffffff" },
-            { Icon: SiReact, color: "#61DAFB" },
-            { Icon: SiTailwindcss, color: "#06B6D4" },
-            { Icon: SiShadcnui, color: "#ffffff" },
-        ],
-    },
-    {
-        name: "Nazim B.",
-        role: "Développeur Frontend",
-        bio: "Conçoit des interfaces utilisateur modernes, performantes et intuitives avec les dernières technologies du web.",
-        Photo: "/resources/Team/mohamed.png",
-        initials: "NB",
-        techs: [
-            { Icon: SiReact, color: "#61DAFB" },
-            { Icon: SiNextdotjs, color: "#ffffff" },
-            { Icon: SiTypescript, color: "#3178C6" },
-            { Icon: SiTailwindcss, color: "#06B6D4" },
-            { Icon: SiShadcnui, color: "#ffffff" },
-        ],
     },
 ];
 
@@ -146,7 +88,7 @@ export default function About() {
     return (
         <section
             id="about"
-            className="relative bg-background overflow-hidden flex items-center border-b border-white/[0.06] mb-24"
+            className="relative bg-background overflow-hidden flex items-center border-b border-white/[0.06] mb-24 scroll-mt-16"
         >
             {/* ── Background glows ── */}
             <div className="absolute inset-0 pointer-events-none select-none">
@@ -164,7 +106,7 @@ export default function About() {
                     {/* LEFT — Info & Pillars */}
                     <div className="lg:col-span-7 flex flex-col gap-4 items-start">
                         {/* Badge */}
-                        <Badge title="À propos de nous" />
+                        <Badge title={navLinks.find(link => link.href === "#about")?.label} />
 
                         {/* Title */}
                         <h2 className="text-3xl lg:text-4xl font-extrabold leading-tight text-foreground">
@@ -235,7 +177,7 @@ export default function About() {
 
                     {/* Horizontal Team Cards Row */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
-                        {TEAM_MEMBERS.map(({ name, role, bio, Photo, initials, techs }) => (
+                        {about.team.map(({ name, role, bio, Photo, PhotoStyle, initials, techs }) => (
                             <Card
                                 key={name}
                                 className="flex gap-4 p-4 items-start"
@@ -244,7 +186,7 @@ export default function About() {
                                 {/* Glowing Photo */}
                                 <div className="relative w-24 aspect-square rounded-full border-2 border-primary/80 shrink-0">
                                     <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-tr from-primary to-background">
-                                        <Image fill src={Photo} alt={name} className="w-full h-full object-cover" />
+                                        <Image fill src={Photo} alt={name} className={PhotoStyle ? `${PhotoStyle} w-full h-full object-cover` : `w-full h-full object-cover`} />
                                     </div>
 
                                     <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-primary/60 select-none -z-10">

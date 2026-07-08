@@ -1,15 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS } from "@/src/constants/navLinks";
+import { navLinks } from "@/src/constants/navLinks";
 import { about } from "@/src/constants/about";
-
-const SERVICES = [
-  { label: "Développement Web", href: "#services" },
-  { label: "Applications Mobile", href: "#services" },
-  { label: "Applications Desktop", href: "#services" },
-  { label: "Intégration IA", href: "#services" },
-  { label: "Conseil & Stratégie", href: "#services" },
-];
+import { services } from "@/src/constants/services";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -76,14 +69,14 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/40">Navigation</h3>
             <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
-              {NAV_LINKS.map(({ label, href }) => (
-                <li key={label}>
+              {navLinks.map(({ title, href }) => (
+                <li key={title}>
                   <Link
                     href={href}
                     className="text-sm text-foreground/60 no-underline hover:text-primary transition-colors duration-200 inline-flex items-center gap-1.5 group"
                   >
                     <span className="w-0 group-hover:w-3 overflow-hidden transition-all duration-200 text-primary">→</span>
-                    {label}
+                    {title}
                   </Link>
                 </li>
               ))}
@@ -94,14 +87,14 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground/40">Services</h3>
             <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
-              {SERVICES.map(({ label, href }) => (
-                <li key={label}>
+              {services.map(({ title, href }) => (
+                <li key={title}>
                   <Link
                     href={href}
                     className="text-sm text-foreground/60 no-underline hover:text-primary transition-colors duration-200 inline-flex items-center gap-1.5 group"
                   >
                     <span className="w-0 group-hover:w-3 overflow-hidden transition-all duration-200 text-primary">→</span>
-                    {label}
+                    {title}
                   </Link>
                 </li>
               ))}

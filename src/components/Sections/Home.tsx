@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Badge from "../units/Badge";
+import { navLinks } from "@/src/constants/navLinks";
 
 const SERVICE_CHIPS = [
     {
@@ -44,7 +45,7 @@ const SERVICE_CHIPS = [
 export default function HeroSection() {
     return (
         <section
-            id="home"
+            id={navLinks.find(link => link.href === "#home")?.href}
             className="relative min-h-[calc(100vh-68px)] flex items-center overflow-hidden bg-background"
         >
             {/* ── Background glow blobs ── */}
@@ -60,7 +61,7 @@ export default function HeroSection() {
                 <div className="flex-1 flex flex-col items-start gap-6 text-center lg:text-left items-center lg:items-start">
 
                     {/* Badge */}
-                    <Badge title="Agence de développement" />
+                    <Badge title={navLinks.find(link => link.href === "#home")?.label} />
 
                     {/* Heading */}
                     <h1 className="text-4xl xl:text-5xl font-extrabold leading-[1.1] tracking-tight text-foreground">
