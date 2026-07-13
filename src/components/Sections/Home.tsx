@@ -52,6 +52,13 @@ export default function HeroSection() {
             <div className="absolute inset-0 pointer-events-none select-none">
                 <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
                 <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-primary/8 blur-[140px]" />
+
+                <Image
+                    src="/resources/vecteezy-blue-light-particles2.png"
+                    alt="Background"
+                    fill
+                    className="opacity-5 hidden lg:block"
+                />
             </div>
 
             {/* ── Content wrapper ── */}

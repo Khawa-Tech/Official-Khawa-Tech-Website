@@ -5,6 +5,7 @@ import Badge from "../units/Badge";
 import { ArrowRight } from "lucide-react";
 import { services } from "@/src/constants/services";
 import { navLinks } from "@/src/constants/navLinks";
+import { GlowLine } from "../units/GlowLine";
 
 export default function Services() {
     return (
@@ -25,8 +26,12 @@ export default function Services() {
                     {/* LEFT: Text Content */}
                     <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
                         <Badge title={navLinks.find(link => link.href === "#services")?.label} />
-                        <h2 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight text-foreground">
-                            Nous Construisons Des Solutions Avec Un <span className="text-primary">Impact Réel</span>
+                        <h2 className="text-3xl lg:text-4xl font-extrabold leading-tight text-foreground">
+                            Nous Construisons Des Solutions Avec Un{" "}
+                            <span className="relative inline-flex flex-col items-center text-primary">
+                                Impact Réel
+                                <GlowLine className="mt-2 w-full" />
+                            </span>
                         </h2>
                         <p className="max-w-xl text-foreground/60 text-base leading-relaxed">
                             De l'idéation au lancement, nous fournissons des solutions numériques de haute qualité adaptées à vos objectifs commerciaux.

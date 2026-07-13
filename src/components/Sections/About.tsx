@@ -9,6 +9,7 @@ import {
 import { Users } from 'lucide-react';
 import { about } from "@/src/constants/about";
 import { navLinks } from "@/src/constants/navLinks";
+import { GlowLine } from "../units/GlowLine";
 
 /* ─────────────────────────────────────────────
    Data
@@ -94,6 +95,12 @@ export default function About() {
             <div className="absolute inset-0 pointer-events-none select-none">
                 <div className="absolute top-[15%] right-[-10%] w-[500px] h-[500px] rounded-full bg-primary/8 blur-[130px]" />
                 <div className="absolute bottom-[10%] left-[-8%] w-[450px] h-[450px] rounded-full bg-primary/6 blur-[120px]" />
+                <Image
+                    src="/resources/vecteezy-blue-light-particles.png"
+                    alt="Background"
+                    fill
+                    className="opacity-20 hidden lg:block"
+                />
             </div>
 
             <div className="relative z-10 w-full mx-auto px-6 lg:px-12 xl:px-16 flex flex-col h-full gap-2">
@@ -110,7 +117,11 @@ export default function About() {
 
                         {/* Title */}
                         <h2 className="text-3xl lg:text-4xl font-extrabold leading-tight text-foreground">
-                            Nous Sommes <span className="text-primary">Khawa Tech</span>
+                            Nous Sommes{" "}
+                            <span className="relative inline-flex flex-col items-center text-primary">
+                                Khawa Tech
+                                <GlowLine className="mt-2 w-full" />
+                            </span>
                         </h2>
 
                         {/* Description */}
