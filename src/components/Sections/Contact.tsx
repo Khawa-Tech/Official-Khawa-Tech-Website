@@ -1,10 +1,32 @@
+"use client";
+
 import Badge from "../units/Badge";
 import Card from "../units/Card";
-import { Mail, Phone, MapPin, Send, UploadCloud, Clock, ShieldCheck, UserCheck, CheckCircle, MessageSquare, User, Building2 } from "lucide-react";
-import Link from "next/link";
+import { Mail, Phone, MapPin, Send, UploadCloud, MessageSquare, User, Building2, CheckCircle, AlertCircle } from "lucide-react";
 import { about } from "@/src/constants/about";
+import { useContactForm } from "@/src/hooks/useContactForm";
+import { servicesLabel } from "@/src/constants/services";
+// Used server-side by src/app/api/contact/route.ts to render the outgoing
+// email — imported here only as a reference for where the form data ends up.
+// import ContactEmailTemplate from "@/src/components/emails/ContactEmailTemplate";
+
+const SERVICE_LABELS: Record<(typeof servicesLabel)[number], string> = {
+    web: "Développement Web",
+    mobile: "Développement Mobile",
+    design: "UI/UX Design",
+    other: "Autre",
+};
 
 export default function Contact() {
+    const { form, status, errorMessage, handleFormSubmit } = useContactForm();
+    const {
+        register,
+        formState: { errors, isSubmitting },
+        watch,
+    } = form;
+
+    const attachments = watch("attachments");
+
     return (
         <section id="contact" className="relative bg-background overflow-hidden py-16 lg:py-24">
             {/* Background glows */}
@@ -111,111 +133,126 @@ export default function Contact() {
                                 </div>
                             </div>
 
-                            <form className="flex flex-col gap-6">
+                            <form className="flex flex-col gap-6" onSubmit={handleFormSubmit} noValidate>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-sm text-foreground/80">Votre Nom</label>
+                                        <label htmlFor="name" className="text-sm text-foreground/80">Votre Nom</label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                                 <User className="w-4 h-4 text-foreground/40" />
                                             </div>
-                                            <input type="text" placeholder="Entrez votre nom complet" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all" />
+                                            <input
+                                                id="name"
+                                                type="text"
+                                                placeholder="Entrez votre nom complet"
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+                                                {...register("name")}
+                                            />
                                         </div>
+                                        {errors.name && <p className="text-xs text-red-400">{errors.name.message}</p>}
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-sm text-foreground/80">Adresse Email</label>
+                                        <label htmlFor="email" className="text-sm text-foreground/80">Adresse Email</label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                                 <Mail className="w-4 h-4 text-foreground/40" />
                                             </div>
-                                            <input type="email" placeholder="Entrez votre email" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all" />
+                                            <input
+                                                id="email"
+                                                type="email"
+                                                placeholder="Entrez votre email"
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+                                                {...register("email")}
+                                            />
                                         </div>
+                                        {errors.email && <p className="text-xs text-red-400">{errors.email.message}</p>}
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-sm text-foreground/80">Nom de l'Entreprise (Optionnel)</label>
+                                    <label htmlFor="company" className="text-sm text-foreground/80">Nom de l'Entreprise (Optionnel)</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <Building2 className="w-4 h-4 text-foreground/40" />
                                         </div>
-                                        <input type="text" placeholder="Entrez le nom de votre entreprise" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all" />
+                                        <input
+                                            id="company"
+                                            type="text"
+                                            placeholder="Entrez le nom de votre entreprise"
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+                                            {...register("phoneNumber")}
+                                        />
                                     </div>
+                                    {errors.phoneNumber && <p className="text-xs text-red-400">{errors.phoneNumber.message}</p>}
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-sm text-foreground/80">En quoi pouvons-nous vous aider ?</label>
-                                    <select defaultValue="" className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-sm text-foreground/80 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all appearance-none cursor-pointer">
+                                    <label htmlFor="service" className="text-sm text-foreground/80">En quoi pouvons-nous vous aider ?</label>
+                                    <select
+                                        id="service"
+                                        defaultValue=""
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-sm text-foreground/80 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all appearance-none cursor-pointer"
+                                        {...register("service")}
+                                    >
                                         <option value="" disabled>Sélectionnez un service</option>
-                                        <option value="web">Développement Web</option>
-                                        <option value="mobile">Développement Mobile</option>
-                                        <option value="design">UI/UX Design</option>
-                                        <option value="other">Autre</option>
+                                        {servicesLabel.map((service) => (
+                                            <option key={service} value={service}>{service}</option>
+                                        ))}
                                     </select>
+                                    {errors.service && <p className="text-xs text-red-400">{errors.service.message}</p>}
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-sm text-foreground/80">Parlez-nous de votre projet</label>
-                                    <textarea rows={4} placeholder="Décrivez votre projet, vos objectifs, délais, budget (optionnel)..." className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"></textarea>
+                                    <label htmlFor="message" className="text-sm text-foreground/80">Parlez-nous de votre projet</label>
+                                    <textarea
+                                        id="message"
+                                        rows={4}
+                                        placeholder="Décrivez votre projet, vos objectifs, délais, budget (optionnel)..."
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                                        {...register("message")}
+                                    />
+                                    {errors.message && <p className="text-xs text-red-400">{errors.message.message}</p>}
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <div className="w-full border border-dashed border-white/20 rounded-lg py-6 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-white/5 transition-all cursor-pointer">
+                                    <label
+                                        htmlFor="attachments"
+                                        className="w-full border border-dashed border-white/20 rounded-lg py-6 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-white/5 transition-all cursor-pointer"
+                                    >
                                         <UploadCloud className="w-6 h-6 text-primary" />
-                                        <p className="text-sm text-foreground/80 font-medium">Télécharger des fichiers (optionnel)</p>
+                                        <p className="text-sm text-foreground/80 font-medium">
+                                            {attachments?.length ? `${attachments.length} fichier(s) sélectionné(s)` : "Télécharger des fichiers (optionnel)"}
+                                        </p>
                                         <p className="text-xs text-foreground/60">Glissez-déposez ou cliquez pour parcourir</p>
-                                    </div>
+                                        <input id="attachments" type="file" multiple className="hidden" {...register("attachments")} />
+                                    </label>
+                                    {errors.attachments && <p className="text-xs text-red-400">{errors.attachments.message as string}</p>}
                                 </div>
 
-                                <button type="button" className="w-full sm:w-auto self-start sm:self-end flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-lg transition-all duration-200 hover:brightness-110 active:scale-[0.98]">
-                                    Envoyer le Message
+                                {status === "success" && (
+                                    <div className="flex items-center gap-3 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
+                                        <CheckCircle className="w-4 h-4 shrink-0" />
+                                        Votre message a bien été envoyé. Nous vous recontacterons sous 24h.
+                                    </div>
+                                )}
+                                {status === "error" && (
+                                    <div className="flex items-center gap-3 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                                        <AlertCircle className="w-4 h-4 shrink-0" />
+                                        {errorMessage ?? "Une erreur est survenue. Veuillez réessayer."}
+                                    </div>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full sm:w-auto self-start sm:self-end flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-lg transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+                                >
+                                    {isSubmitting ? "Envoi en cours..." : "Envoyer le Message"}
                                     <Send className="w-4 h-4" />
                                 </button>
 
                             </form>
                         </Card>
-
-                        {/* Features Below Form */}
-                        {/* <Card className="w-full p-6" hoverEffect={false}>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
-                                <div className="flex items-start gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                                        <Clock className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <h5 className="text-[13px] font-bold text-foreground leading-tight">Réponse Rapide</h5>
-                                        <p className="text-[11px] text-foreground/60 mt-1 leading-snug">Nous répondons dans les 24 heures</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                                        <ShieldCheck className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <h5 className="text-[13px] font-bold text-foreground leading-tight">Sécurisé & Privé</h5>
-                                        <p className="text-[11px] text-foreground/60 mt-1 leading-snug">Vos infos sont 100% sûres</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                                        <UserCheck className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <h5 className="text-[13px] font-bold text-foreground leading-tight">Support Dédié</h5>
-                                        <p className="text-[11px] text-foreground/60 mt-1 leading-snug">Nous vous accompagnons</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                                        <CheckCircle className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <h5 className="text-[13px] font-bold text-foreground leading-tight">Satisfaction Avant Tout</h5>
-                                        <p className="text-[11px] text-foreground/60 mt-1 leading-snug">Votre succès est notre priorité</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </Card> */}
                     </div>
 
                 </div>

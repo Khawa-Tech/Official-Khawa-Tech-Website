@@ -38,3 +38,5 @@ export const services: Service[] = [
         href: "#AiDev",
     },
 ];
+
+export const servicesLabel = services.map((service) => service.title);

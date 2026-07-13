@@ -56,24 +56,25 @@ export const about: AboutInfo = {
         socialMedias: [
             {
                 label: "Instagram",
-                url: "https://instagram.com",
+                url: "https://www.instagram.com/khawa.tech/",
                 Icon: FaInstagram,
             },
             {
                 label: "Facebook",
-                url: "https://facebook.com",
+                url: "https://www.facebook.com/profile.php?id=61592001952285",
                 Icon: FaFacebook,
-            },
-            {
-                label: "LinkedIn",
-                url: "https://linkedin.com",
-                Icon: FaLinkedin,
-            },
-            {
-                label: "GitHub",
-                url: "https://github.com",
-                Icon: FaGithub,
             }
+            // ,
+            // {
+            //     label: "LinkedIn",
+            //     url: "https://linkedin.com",
+            //     Icon: FaLinkedin,
+            // },
+            // {
+            //     label: "GitHub",
+            //     url: "https://github.com",
+            //     Icon: FaGithub,
+            // }
         ]
     },
     team: [
