@@ -22,11 +22,9 @@ export default function Contact() {
     const {
         register,
         formState: { errors, isSubmitting },
-        watch,
     } = form;
 
-    const attachments = watch("attachments");
-
+    const ContactMethods = ['whatsapp', 'viber', 'email', 'call'];
     return (
         <section id="contact" className="relative bg-background overflow-hidden py-16 lg:py-24">
             {/* Background glows */}
@@ -169,21 +167,42 @@ export default function Contact() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="company" className="text-sm text-foreground/80">Nom de l'Entreprise (Optionnel)</label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <Building2 className="w-4 h-4 text-foreground/40" />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="flex flex-col gap-2">
+                                        <label htmlFor="phoneNumber" className="text-sm text-foreground/80">Numero telephone (Optionnel)</label>
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Phone className="w-4 h-4 text-foreground/40" />
+                                            </div>
+                                            <input
+                                                id="phoneNumber"
+                                                type="text"
+                                                placeholder="Entrez votre numero de telephone"
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+                                                {...register("phoneNumber")}
+                                            />
                                         </div>
-                                        <input
-                                            id="company"
-                                            type="text"
-                                            placeholder="Entrez le nom de votre entreprise"
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
-                                            {...register("phoneNumber")}
-                                        />
+                                        {errors.phoneNumber && <p className="text-xs text-red-400">{errors.phoneNumber.message}</p>}
                                     </div>
-                                    {errors.phoneNumber && <p className="text-xs text-red-400">{errors.phoneNumber.message}</p>}
+
+                                    <div className="flex flex-col gap-2">
+                                        <label htmlFor="preferredContactMethod" className="text-sm text-foreground/80">Méthode de contact préférée</label>
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <MessageSquare className="w-4 h-4 text-foreground/40" />
+                                            </div>
+                                            <select
+                                                id="preferredContactMethod"
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+                                                {...register("preferredContactMethod")}
+                                            >
+                                                {ContactMethods.map((method) => (
+                                                    <option key={method} value={method} className="text-gray-600">{method}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        {errors.preferredContactMethod && <p className="text-xs text-red-400">{errors.preferredContactMethod.message}</p>}
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-col gap-2">
@@ -196,7 +215,7 @@ export default function Contact() {
                                     >
                                         <option value="" disabled>Sélectionnez un service</option>
                                         {servicesLabel.map((service) => (
-                                            <option key={service} value={service}>{service}</option>
+                                            <option key={service} value={service} className="text-gray-600">{service}</option>
                                         ))}
                                     </select>
                                     {errors.service && <p className="text-xs text-red-400">{errors.service.message}</p>}
@@ -212,21 +231,6 @@ export default function Contact() {
                                         {...register("message")}
                                     />
                                     {errors.message && <p className="text-xs text-red-400">{errors.message.message}</p>}
-                                </div>
-
-                                <div className="flex flex-col gap-2">
-                                    <label
-                                        htmlFor="attachments"
-                                        className="w-full border border-dashed border-white/20 rounded-lg py-6 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-white/5 transition-all cursor-pointer"
-                                    >
-                                        <UploadCloud className="w-6 h-6 text-primary" />
-                                        <p className="text-sm text-foreground/80 font-medium">
-                                            {attachments?.length ? `${attachments.length} fichier(s) sélectionné(s)` : "Télécharger des fichiers (optionnel)"}
-                                        </p>
-                                        <p className="text-xs text-foreground/60">Glissez-déposez ou cliquez pour parcourir</p>
-                                        <input id="attachments" type="file" multiple className="hidden" {...register("attachments")} />
-                                    </label>
-                                    {errors.attachments && <p className="text-xs text-red-400">{errors.attachments.message as string}</p>}
                                 </div>
 
                                 {status === "success" && (

@@ -18,6 +18,11 @@ export const contactFormSchema = z.object({
     phoneNumber: z
         .string()
         .min(8, "Le numéro de téléphone doit contenir au moins 8 caractères")
+        .or(z.literal(""))
+        .optional(),
+
+    preferredContactMethod: z
+        .enum(["whatsapp", "viber", "email", "call"])
         .optional(),
 
     service: z.enum(services.map((service) => service.title), {
@@ -26,24 +31,10 @@ export const contactFormSchema = z.object({
 
     message: z
         .string()
-        .trim()
         .min(10, "Le message doit contenir au moins 10 caractères")
-        .max(2000, "Le message est trop long (2000 caractères max)"),
+        .or(z.literal(""))
+        .optional(),
 
-    // File input is optional; validated client-side only (size/type), never required.
-    attachments: z
-        .instanceof(FileList)
-        .optional()
-        .refine(
-            (files) => !files || files.length <= 5,
-            "Vous pouvez joindre 5 fichiers maximum"
-        )
-        .refine(
-            (files) =>
-                !files ||
-                Array.from(files).every((file) => file.size <= 10 * 1024 * 1024),
-            "Chaque fichier doit faire moins de 10 Mo"
-        ),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;

@@ -27,6 +27,7 @@ type SocialMedia = {
 
 type Team = {
     name: string;
+    email: string;
     role: string;
     bio: string;
     Photo: string;
@@ -80,6 +81,7 @@ export const about: AboutInfo = {
     team: [
         {
             name: "Tamer N.",
+            email: "tamerniati@gmail.com",
             role: "Développeur Mobile & IA",
             bio: "Développe des applications mobiles modernes avec Flutter et conçoit des solutions d'intelligence artificielle performantes.",
             Photo: "/resources/Team/tamer2.png",
@@ -94,6 +96,7 @@ export const about: AboutInfo = {
         },
         {
             name: "Mohamed L.",
+            email: "mohamedlouahchi9@gmail.com",
             role: "Développeur Full Stack",
             bio: "Développe des applications web évolutives en utilisant des architectures modernes côté frontend et backend.",
             Photo: "/resources/Team/mohamed.png",
@@ -111,6 +114,7 @@ export const about: AboutInfo = {
         },
         {
             name: "Nazim B.",
+            email: "nazimbenli69@gmail.com",
             role: "Développeur Frontend",
             bio: "Conçoit des interfaces utilisateur modernes, performantes et intuitives avec les dernières technologies du web.",
             Photo: "/resources/Team/nazim.png",
